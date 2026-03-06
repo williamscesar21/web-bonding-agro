@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Colores de la marca */
+  --color-brand-green: #064e3b;
+  --color-brand-light: #ecfdf5;
+  --color-brand-accent: #10b981;
+  
+  /* Sobrescribir la fuente principal de Tailwind */
+  --font-sans: 'Poppins', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Opcional: Asegurarnos de que todo el body tome la fuente por defecto */
+body {
+  font-family: 'Poppins', sans-serif;
+}
