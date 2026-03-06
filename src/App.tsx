@@ -224,7 +224,7 @@ function App() {
             {metodosData.map((metodo, index) => (
               <div 
                 key={`content-${metodo.id}`} 
-                ref={(el) => (sectionRefs.current[index] = el)}
+                ref={(el) => { sectionRefs.current[index] = el; }}
                 className={`transition-opacity duration-700 ${activeTab === index ? 'opacity-100' : 'opacity-40 lg:opacity-30'}`}
               >
                 <h2 className="text-3xl lg:text-4xl font-bold text-emerald-950 mb-6 tracking-tight">
