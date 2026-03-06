@@ -1,4 +1,4 @@
-import { Sprout, BarChart3, CloudRain, ShieldCheck, ArrowRight, Star, Quote, Activity } from 'lucide-react';
+import { Sprout, BarChart3, CloudRain, ShieldCheck, ArrowRight, Activity } from 'lucide-react';
 import { useState } from 'react';
 
 function App() {
@@ -217,102 +217,6 @@ function App() {
             </div>
           </div>
 
-        </div>
-      </section>
-
-      {/* 4. SECCIÓN TESTIMONIO */}
-      {/* 4. SECCIÓN TESTIMONIOS (Grid de 3 columnas) */}
-      <section className="py-24 bg-[#f0f6fa] text-center px-4 sm:px-6">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl font-bold text-emerald-950 mb-16 tracking-tight">Lo que dicen los productores de la zona</h2>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            
-            {/* Testimonio 1: Maíz */}
-            <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-xl transition-all duration-300">
-              <div>
-                <div className="flex justify-center gap-1 mb-6">
-                  <Star className="fill-emerald-500 text-emerald-500" size={20} />
-                  <Star className="fill-emerald-500 text-emerald-500" size={20} />
-                  <Star className="fill-emerald-500 text-emerald-500" size={20} />
-                  <Star className="fill-emerald-500 text-emerald-500" size={20} />
-                  <Star className="fill-emerald-500 text-emerald-500" size={20} />
-                </div>
-                <Quote className="mx-auto text-emerald-200 mb-6" size={36} />
-                <p className="text-lg font-medium text-emerald-950 leading-relaxed mb-8 tracking-tight">
-                  "Comenzamos usando el software a medida para controlar la nómina, y cuando Web Bonding nos integró los mapas satelitales, los resultados fueron increíbles. Gastamos menos Urea y el rendimiento por hectárea mejoró notablemente."
-                </p>
-              </div>
-              <div className="flex items-center justify-center gap-4 border-t border-gray-50 pt-6">
-                <img 
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop" 
-                  alt="Productor Agrícola" 
-                  className="w-14 h-14 rounded-full object-cover shadow-sm border-2 border-emerald-50"
-                />
-                <div className="text-left">
-                  <p className="font-bold text-emerald-950">Carlos M.</p>
-                  <p className="text-xs text-gray-500">Productor de Maíz, Turén</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Testimonio 2: Arroz */}
-            <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-xl transition-all duration-300">
-              <div>
-                <div className="flex justify-center gap-1 mb-6">
-                  <Star className="fill-emerald-500 text-emerald-500" size={20} />
-                  <Star className="fill-emerald-500 text-emerald-500" size={20} />
-                  <Star className="fill-emerald-500 text-emerald-500" size={20} />
-                  <Star className="fill-emerald-500 text-emerald-500" size={20} />
-                  <Star className="fill-emerald-500 text-emerald-500" size={20} />
-                </div>
-                <Quote className="mx-auto text-emerald-200 mb-6" size={36} />
-                <p className="text-lg font-medium text-emerald-950 leading-relaxed mb-8 tracking-tight">
-                  "El control de las horas de las bombas de pozo y el índice NDWI para la humedad nos salvó el ciclo. Por fin sabemos el costo real de cada terraza inundada sin estar adivinando. Una plataforma indispensable."
-                </p>
-              </div>
-              <div className="flex items-center justify-center gap-4 border-t border-gray-50 pt-6">
-                <img 
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop" 
-                  alt="Productora Agrícola" 
-                  className="w-14 h-14 rounded-full object-cover shadow-sm border-2 border-emerald-50"
-                />
-                <div className="text-left">
-                  <p className="font-bold text-emerald-950">Valeria P.</p>
-                  <p className="text-xs text-gray-500">Productora de Arroz, Agua Blanca</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Testimonio 3: Frijol / Verano */}
-            <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-xl transition-all duration-300">
-              <div>
-                <div className="flex justify-center gap-1 mb-6">
-                  <Star className="fill-emerald-500 text-emerald-500" size={20} />
-                  <Star className="fill-emerald-500 text-emerald-500" size={20} />
-                  <Star className="fill-emerald-500 text-emerald-500" size={20} />
-                  <Star className="fill-emerald-500 text-emerald-500" size={20} />
-                  <Star className="fill-emerald-500 text-emerald-500" size={20} />
-                </div>
-                <Quote className="mx-auto text-emerald-200 mb-6" size={36} />
-                <p className="text-lg font-medium text-emerald-950 leading-relaxed mb-8 tracking-tight">
-                  "Evitamos perder la cosecha de verano gracias a las alertas climáticas. Además, el pago a las cuadrillas eventuales y el control de los despachos en silo ahora es automático. Dejamos el cuaderno en el pasado."
-                </p>
-              </div>
-              <div className="flex items-center justify-center gap-4 border-t border-gray-50 pt-6">
-                <img 
-                  src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop" 
-                  alt="Productor Agrícola" 
-                  className="w-14 h-14 rounded-full object-cover shadow-sm border-2 border-emerald-50"
-                />
-                <div className="text-left">
-                  <p className="font-bold text-emerald-950">José R.</p>
-                  <p className="text-xs text-gray-500">Productor de Frijol, Araure</p>
-                </div>
-              </div>
-            </div>
-
-          </div>
         </div>
       </section>
 
