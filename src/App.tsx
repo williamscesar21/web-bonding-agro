@@ -142,7 +142,7 @@ function App() {
               Diseñamos el futuro de tu siembra con tecnología a medida.
             </h2>
             <p className="text-lg leading-relaxed mb-6 text-gray-600">
-              La agricultura de precisión no es un lujo, es la única forma de asegurar rentabilidad hoy. En Web Bonding desarrollamos el software exacto que tu finca en Acarigua, Araure o Turén necesita, eliminando las hojas de cálculo genéricas.
+              La agricultura de precisión no es un lujo, es la única forma de asegurar rentabilidad hoy. En Web Bonding desarrollamos el software exacto que tu finca en Portuguesa necesita, eliminando las hojas de cálculo genéricas.
             </p>
             <p className="text-lg leading-relaxed mb-10 text-gray-600">
               Cruzamos los datos administrativos de tu oficina con mapas de calor satelitales (NDVI/NDWI) desde el espacio, dándote visibilidad total de tu cosecha.
