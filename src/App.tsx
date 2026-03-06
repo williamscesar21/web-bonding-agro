@@ -1,5 +1,5 @@
 import { Sprout, BarChart3, CloudRain, ShieldCheck, ArrowRight, Activity } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 function App() {
   const whatsappNumber = "584121510662";
@@ -7,6 +7,8 @@ function App() {
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
   const [activeTab, setActiveTab] = useState(0);
+  // Referencias para cada bloque de contenido
+  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const metodosData = [
     {
@@ -50,6 +52,41 @@ function App() {
       image: 'https://images.unsplash.com/photo-1561484930-998b6a7b22e8?q=80&w=800&auto=format&fit=crop'
     }
   ];
+
+  // Lógica para detectar el scroll y cambiar la pestaña activa
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      // Margen para que detecte el cambio cuando la sección llega a la mitad de la pantalla
+      rootMargin: '-40% 0px -40% 0px',
+      threshold: 0
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const index = sectionRefs.current.findIndex((ref) => ref === entry.target);
+          if (index !== -1) {
+            setActiveTab(index);
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    sectionRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Función para cuando el usuario hace clic en el botón (hace scroll suave hasta la sección)
+  const handleTabClick = (index: number) => {
+    setActiveTab(index);
+    sectionRefs.current[index]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
 
   return (
     <div className="min-h-screen bg-white font-sans text-gray-600 antialiased selection:bg-emerald-900 selection:text-white">
@@ -97,7 +134,7 @@ function App() {
             <div className="flex flex-col sm:flex-row gap-4">
               <a 
                 href="#metodos"
-                className="bg-white text-emerald-950 px-8 py-2 rounded-full font-bold text-center hover:bg-gray-100 transition-all text-lg"
+                className="bg-white text-emerald-950 px-8 py-2 rounded-full font-bold text-center hover:bg-gray-100 transition-all text-lg flex items-center justify-center"
               >
                 Explorar Soluciones
               </a>
@@ -158,22 +195,22 @@ function App() {
         </div>
       </section>
 
-      {/* 3. SECCIÓN MÉTODOS / TECNOLOGÍA */}
-      <section id="metodos" className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 border-t border-gray-100">
+      {/* 3. SECCIÓN MÉTODOS / TECNOLOGÍA CON SCROLL AUTOMÁTICO */}
+      <section id="metodos" className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 border-t border-gray-100 relative">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
-          {/* Menú Interactivo */}
-          <div className="lg:col-span-3 space-y-2">
+          {/* Menú Lateral Pegajoso (Sticky) */}
+          <div className="lg:col-span-4 lg:sticky lg:top-32 z-20">
             <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6 pl-4">Tecnologías Integradas</h3>
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-2">
               {metodosData.map((metodo, index) => (
                 <button
-                  key={metodo.id}
-                  onClick={() => setActiveTab(index)}
-                  className={`text-left px-4 py-3 rounded-xl transition-all duration-300 ${
+                  key={`btn-${metodo.id}`}
+                  onClick={() => handleTabClick(index)}
+                  className={`text-left px-5 py-4 rounded-xl transition-all duration-300 shadow-sm ${
                     activeTab === index 
-                      ? 'bg-emerald-50 text-emerald-900 font-bold border-l-4 border-emerald-500' 
-                      : 'text-gray-500 font-medium hover:bg-gray-50 border-l-4 border-transparent'
+                      ? 'bg-emerald-50 text-emerald-900 font-bold border-l-4 border-emerald-500 scale-105' 
+                      : 'text-gray-500 font-medium hover:bg-gray-50 border-l-4 border-transparent bg-white'
                   }`}
                 >
                   {metodo.label}
@@ -182,39 +219,44 @@ function App() {
             </div>
           </div>
 
-          {/* Contenido Dinámico */}
-          <div className="lg:col-span-9">
-            {/* Animación de entrada suave basada en el cambio de estado */}
-            <div key={activeTab} className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <h2 className="text-3xl lg:text-4xl font-bold text-emerald-950 mb-6 tracking-tight">
-                {metodosData[activeTab].title}
-              </h2>
-              <p className="text-lg text-gray-600 mb-10 max-w-3xl leading-relaxed">
-                {metodosData[activeTab].desc}
-              </p>
-              
-              <div className="bg-emerald-50 rounded-[2rem] p-6 lg:p-10 flex flex-col md:flex-row gap-8 items-center border border-emerald-100 relative overflow-hidden">
-                <div className="flex-1 relative z-10">
-                  <h4 className="text-5xl font-bold text-emerald-900 mb-2">
-                    {metodosData[activeTab].stat}
-                  </h4>
-                  <p className="text-emerald-800 font-medium mb-6">
-                    {metodosData[activeTab].statDesc}
-                  </p>
-                  <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm text-sm font-bold text-emerald-700">
-                    <Activity size={16} /> {metodosData[activeTab].badge}
+          {/* Contenido Dinámico (Scrollable) */}
+          <div className="lg:col-span-8 space-y-24 lg:space-y-48 py-10">
+            {metodosData.map((metodo, index) => (
+              <div 
+                key={`content-${metodo.id}`} 
+                ref={(el) => (sectionRefs.current[index] = el)}
+                className={`transition-opacity duration-700 ${activeTab === index ? 'opacity-100' : 'opacity-40 lg:opacity-30'}`}
+              >
+                <h2 className="text-3xl lg:text-4xl font-bold text-emerald-950 mb-6 tracking-tight">
+                  {metodo.title}
+                </h2>
+                <p className="text-lg text-gray-600 mb-10 leading-relaxed">
+                  {metodo.desc}
+                </p>
+                
+                <div className="bg-emerald-50 rounded-[2rem] p-6 lg:p-10 flex flex-col md:flex-row gap-8 items-center border border-emerald-100 relative overflow-hidden">
+                  <div className="flex-1 relative z-10">
+                    <h4 className="text-5xl font-bold text-emerald-900 mb-2">
+                      {metodo.stat}
+                    </h4>
+                    <p className="text-emerald-800 font-medium mb-6">
+                      {metodo.statDesc}
+                    </p>
+                    <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm text-sm font-bold text-emerald-700">
+                      <Activity size={16} /> {metodo.badge}
+                    </div>
                   </div>
+                  <div className="flex-1 w-full relative z-10">
+                    <img 
+                      src={metodo.image} 
+                      alt={metodo.title} 
+                      className="rounded-2xl shadow-xl w-full h-48 lg:h-56 object-cover"
+                    />
+                  </div>
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-200 rounded-full blur-3xl opacity-30 -translate-y-1/2 translate-x-1/3"></div>
                 </div>
-                <div className="flex-1 w-full relative z-10">
-                  <img 
-                    src={metodosData[activeTab].image} 
-                    alt={metodosData[activeTab].title} 
-                    className="rounded-2xl shadow-xl w-full h-48 lg:h-56 object-cover"
-                  />
-                </div>
-                <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-200 rounded-full blur-3xl opacity-30 -translate-y-1/2 translate-x-1/3"></div>
               </div>
-            </div>
+            ))}
           </div>
 
         </div>
